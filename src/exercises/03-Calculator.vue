@@ -27,7 +27,7 @@ const calculate = () => {
 </script>
 
 <template>
-  <ExerciseBase number="1" title="Excercice 3">
+  <ExerciseBase title="Excercice 3">
     <h2>Calculatrice</h2>
     <section class="container">
       <div class="input-container">

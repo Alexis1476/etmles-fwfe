@@ -16,7 +16,7 @@ const hasBirthday = () => {
 </script>
 
 <template>
-  <ExerciseBase number="1" title="Excercice 2">
+  <ExerciseBase title="Excercice 2">
     <p>Bienvenue {{ person.firstName }} {{ person.lastName }}</p>
     <img v-if="hasBirthday()"
          alt=""

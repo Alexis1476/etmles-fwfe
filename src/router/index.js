@@ -3,6 +3,7 @@ import {createRouter, createWebHistory} from 'vue-router';
 // On importe les exercices
 import Ex02 from '../exercises/02-Serie.vue';
 import Ex03 from '../exercises/03-Calculator.vue';
+import Ex04 from '../exercises/04-StarWars.vue';
 import Home from "@/Home.vue";
 
 const routes = [
@@ -12,6 +13,7 @@ const routes = [
     children: [
       {path: '02', component: Ex02, meta: {title: 'Les Directives'}},
       {path: '03', component: Ex03, meta: {title: 'Calculatrice'}},
+      {path: '04', component: Ex04, meta: {title: 'Star Wars'}},
     ]
   }
 ];

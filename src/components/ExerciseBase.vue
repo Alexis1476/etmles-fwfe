@@ -5,7 +5,6 @@ defineProps(['number', 'title', 'description'])
 <template>
   <div class="exercise-wrapper">
     <header class="ex-header">
-      <span class="badge">Exercice {{ number }}</span>
       <h1>{{ title }}</h1>
       <p class="description">{{ description }}</p>
     </header>
@@ -28,15 +27,6 @@ defineProps(['number', 'title', 'description'])
   margin-bottom: 2rem;
   border-bottom: 2px solid #eee;
   padding-bottom: 1rem;
-}
-
-.badge {
-  background: #42b883;
-  color: white;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: bold;
 }
 
 .description {
