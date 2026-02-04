@@ -14,12 +14,13 @@ const hasBirthday = () => {
   return (birthDate.getDate() === today.getDate() && birthDate.getMonth() === today.getMonth())
 }
 </script>
+
 <template>
   <ExerciseBase number="1" title="Excercice 2">
     <p>Bienvenue {{ person.firstName }} {{ person.lastName }}</p>
     <img v-if="hasBirthday()"
-         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRk8dXEV2IUaDrVmUf1gTZcpv0Rii8IAWBEbQ&s"
-         alt="">
+         alt=""
+         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRk8dXEV2IUaDrVmUf1gTZcpv0Rii8IAWBEbQ&s">
   </ExerciseBase>
 </template>
 

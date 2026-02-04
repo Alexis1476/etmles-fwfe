@@ -1,6 +1,7 @@
 <script setup>
 const exercises = [
-  { id: '02', title: 'Directives', path: '/exercices/02' }
+  { id: '02', title: 'Directives', path: '/exercices/02' },
+  { id: '03', title: 'Calculatrice', path: '/exercices/03' }
 ];
 </script>
 
