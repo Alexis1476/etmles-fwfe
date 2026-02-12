@@ -22,7 +22,7 @@ const characters = ref([
 </script>
 
 <template>
-  <ExerciseBase title="Exercise 4">
+  <ExerciseBase title="Exercise 5">
     <h2>Personnages de StarWars</h2>
     <ul>
       <li v-for="character in characters" :key="character.id">{{ character.name }}</li>

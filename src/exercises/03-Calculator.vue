@@ -27,7 +27,7 @@ const calculate = () => {
 </script>
 
 <template>
-  <ExerciseBase title="Excercice 3">
+  <ExerciseBase title="Exercise 3">
     <h2>Calculatrice</h2>
     <form class="container" @submit.prevent="calculate">
       <div class="input-container">
