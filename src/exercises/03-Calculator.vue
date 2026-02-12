@@ -29,7 +29,7 @@ const calculate = () => {
 <template>
   <ExerciseBase title="Excercice 3">
     <h2>Calculatrice</h2>
-    <section class="container">
+    <form class="container" @submit.prevent="calculate">
       <div class="input-container">
         <label for="first">Premier opérande</label>
         <input id="first" v-model="firstOperator" placeholder="First Operator" required
@@ -50,9 +50,9 @@ const calculate = () => {
         >
         <label :for="op.id">{{ op.label }}</label>
       </div>
-      <button v-on:click="calculate()">Additionner</button>
+      <button type="submit">Additionner</button>
       <p>Résultat: {{ result }}</p>
-    </section>
+    </form>
   </ExerciseBase>
 </template>
 
