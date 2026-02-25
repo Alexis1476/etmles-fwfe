@@ -5,6 +5,7 @@ import Ex02 from '../exercises/02-Serie.vue';
 import Ex03 from '../exercises/03-Calculator.vue';
 import Ex04 from '../exercises/04-StarWars.vue';
 import Ex05 from '../exercises/05-StarWars2.vue';
+import Ex06 from '../exercises/06-Components.vue';
 import Home from "@/Home.vue";
 
 const routes = [
@@ -16,6 +17,7 @@ const routes = [
       {path: '03', component: Ex03, meta: {title: 'Calculatrice'}},
       {path: '04', component: Ex04, meta: {title: 'Star Wars'}},
       {path: '05', component: Ex05, meta: {title: 'Star Wars 2'}},
+      {path: '06', component: Ex06, meta: {title: 'Composants'}},
     ]
   }
 ];
