@@ -1,7 +1,11 @@
 <script setup>
 import TodoItem from "@/components/TodoList/TodoItem.vue";
 
-defineProps(['todos']) // Liste
+defineProps({
+  todos: {
+    type: Array,
+  }
+}) // Liste
 
 const emit = defineEmits(['change-selected', 'delete-task'])
 const handleCheckboxSelection = (id) => {
