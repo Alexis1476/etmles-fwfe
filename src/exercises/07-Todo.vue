@@ -1,6 +1,7 @@
 <script setup>
 import ExerciseBase from '../components/ExerciseBase.vue'
 import {ref} from "vue"
+import { v4 as uuidv4 } from 'uuid'
 import TodoList from "@/components/TodoList/TodoList.vue";
 
 const todos = ref([
@@ -10,26 +11,46 @@ const todos = ref([
     completed: false
   },
   {
-    id: 1,
+    id: 2,
     title: 'Manger avec Crasson',
     completed: false
   }
 ])
+
+const switchTodoStatus = (id) => {
+  const todo = todos.value.find(x => x.id === id)
+  if (todo) {
+    todo.completed = !todo.completed
+  }
+  console.log(todos)
+}
+const deleteTodo = (id) => {
+  todos.value = todos.value.filter(x => x.id !== id)
+}
+const newTodoTitle = ref('')
+const addTodo = () => {
+  todos.value.push({
+    id: uuidv4(),
+    title: newTodoTitle.value,
+    completed: false
+  })
+  newTodoTitle.value = ''
+}
 </script>
 
 <template>
   <ExerciseBase title="Exercise 7">
-      <header class="todo-header">
-        <h1>Mes Tâches</h1>
-        <span class="todo-count">{{ todos.filter(t => !t.completed).length }} en cours</span>
-      </header>
+    <header class="todo-header">
+      <h1>Mes Tâches</h1>
+      <span class="todo-count">{{ todos.filter(t => !t.completed).length }} en cours</span>
+    </header>
 
-      <div class="add-todo">
-        <input type="text" placeholder="Ajouter une nouvelle tâche..." />
-        <button class="btn-add">Ajouter</button>
-      </div>
+    <div class="add-todo">
+      <input placeholder="Ajouter une nouvelle tâche..." type="text" v-model="newTodoTitle" @keyup.enter="addTodo"/>
+      <button class="btn-add" @click="addTodo">Ajouter</button>
+    </div>
 
-      <TodoList :todos="todos" />
+    <TodoList :todos="todos" @change-selected="switchTodoStatus" @delete-task="deleteTodo" />
   </ExerciseBase>
 </template>
 

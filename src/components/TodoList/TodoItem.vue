@@ -5,22 +5,26 @@ const props = defineProps({
     required: true
   }
 })
-const emit = defineEmits(['completeTodo'])
-const handleCompleteTodo = () => {
-  emit('completeTodo', props.todo.id)
+
+const emit = defineEmits(['changeSelected', 'deleteTodo'])
+const handleChangeSelected = () => {
+  emit('changeSelected', props.todo.id)
+}
+const handleDeleteTask = () => {
+  emit('deleteTodo', props.todo.id)
 }
 </script>
 
 <template>
-  <li :key="props.id" :class="{ completed: props.todo.completed }" class="todo-item">
+  <li :class="{ completed: props.todo.completed }" class="todo-item">
     <div class="todo-content">
       <label class="checkbox-container">
-        <input :checked="props.todo.completed" type="checkbox" @change="handleCompleteTodo"/>
+        <input :checked="props.todo.completed" type="checkbox" @change="handleChangeSelected"/>
         <span class="checkmark"></span>
       </label>
       <span class="todo-title">{{ props.todo.title }}</span>
     </div>
-    <button class="btn-delete">
+    <button class="btn-delete" type="button" @click="handleDeleteTask">
       <svg fill="none" height="18" stroke="currentColor" stroke-linecap="round"
            stroke-linejoin="round"
            stroke-width="2" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg">
