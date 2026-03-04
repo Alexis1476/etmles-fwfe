@@ -1,7 +1,7 @@
 <script setup>
 import TodoItem from "@/components/TodoList/TodoItem.vue";
 
-defineProps(['todos'])
+defineProps(['todos']) // Liste
 
 const emit = defineEmits(['change-selected', 'delete-task'])
 const handleCheckboxSelection = (id) => {
@@ -14,9 +14,11 @@ const handleButtonDeleteTask = (id) => {
 
 <template>
   <ul class="todo-list">
-    <TodoItem v-for="todo in todos" v-bind:key="todo.id" :class="{ completed: todo.completed }"
-              v-bind:todo="todo" v-on:change-selected="handleCheckboxSelection($event)"
-              v-on:delete-todo="handleButtonDeleteTask($event)"/>
+    <TodoItem v-for="todo in todos"
+              :key="todo.id"
+              :todo="todo"
+              @change-selected="handleCheckboxSelection"
+              @delete-todo="handleButtonDeleteTask"/>
   </ul>
 </template>
 
