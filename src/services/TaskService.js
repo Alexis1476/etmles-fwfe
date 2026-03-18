@@ -36,6 +36,14 @@ class TaskService {
       throw new Error(`Erreur HTTP ${error.response.status}: ${error.response.data}`);
     }
   }
+  updateTask = async (id, task) => {
+    try {
+      const response = await this.apiClient.put(`/${id}`, task);
+      return response.data;
+    } catch (error) {
+      throw new Error(`Erreur HTTP ${error.response.status}: ${error.response.data}`);
+    }
+  }
 }
 
 export default new TaskService()

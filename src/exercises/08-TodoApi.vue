@@ -1,38 +1,73 @@
 <script setup>
+import {computed, onMounted, ref} from "vue"
 import ExerciseBase from '../components/ExerciseBase.vue'
-import {onMounted, ref} from "vue"
-import TodoList from "@/components/TodoList/TodoList.vue";
-import taskService from "@/services/TaskService.js";
+import TodoList from "@/components/TodoList/TodoList.vue"
+import taskService from "@/services/TaskService.js"
+
+import {toast} from "vue3-toastify";
 
 const todos = ref([])
+const newTodoTitle = ref('')
 
+// Compteur calculé automatiquement
+const pendingCount = computed(() => todos.value.filter(t => !t.completed).length)
+
+// 1. Charger les données au montage du composant
 onMounted(async () => {
   try {
     todos.value = await taskService.fetchTasks()
-  } catch (e) {
-    console.log(e)
+  } catch {
+    toast.error("Impossible de charger les tâches")
   }
 })
 
-const switchTodoStatus = (id) => {
-  const todo = todos.value.find(x => x.id === id)
-  if (todo) {
-    todo.completed = !todo.completed
-  }
-  console.log(todos)
-}
-const deleteTodo = async (id) => {
-  let result = await taskService.deleteTask(id)
-  if (result) {
-    todos.value = todos.value.filter(x => x.id !== id)
-  }
-}
-const newTodoTitle = ref('')
+// 2. Ajouter une tâche
 const addTodo = async () => {
-  let result = await taskService.createTask({title: newTodoTitle.value, completed: false})
+  if (!newTodoTitle.value) return
 
-  todos.value.push(result)
-  newTodoTitle.value = ''
+  try {
+    const payload = {
+      title: newTodoTitle.value,
+      completed: false,
+      userId: 1
+    }
+    const savedTodo = await taskService.createTask(payload)
+
+    // On l'ajoute en haut de la liste (unshift)
+    todos.value.unshift(savedTodo)
+    newTodoTitle.value = ''
+    toast.success("Tâche ajoutée !")
+  } catch {
+    toast.error("Erreur lors de l'ajout")
+  }
+}
+
+// 3. Changer le statut (terminé / à faire)
+const switchTodoStatus = async (id) => {
+  const todo = todos.value.find(x => x.id === id)
+  if (!todo) return
+
+  try {
+    const newStatus = !todo.completed
+    await taskService.updateTask(id, {completed: newStatus})
+
+    // Mise à jour locale après succès API
+    todo.completed = newStatus
+    toast.info("Statut mis à jour")
+  } catch {
+    toast.error("Erreur de mise à jour")
+  }
+}
+
+// 4. Supprimer une tâche
+const deleteTodo = async (id) => {
+  try {
+    await taskService.deleteTask(id)
+    todos.value = todos.value.filter(x => x.id !== id)
+    toast.success("Tâche supprimée")
+  } catch {
+    toast.error("Erreur lors de la suppression")
+  }
 }
 </script>
 
@@ -40,20 +75,29 @@ const addTodo = async () => {
   <ExerciseBase title="Exercise 7">
     <header class="todo-header">
       <h1>Mes Tâches</h1>
-      <span class="todo-count">{{ todos.filter(t => !t.completed).length }} en cours</span>
+      <span class="todo-count">{{ pendingCount }} en cours</span>
     </header>
 
     <div class="add-todo">
-      <input v-model="newTodoTitle" placeholder="Ajouter une nouvelle tâche..." type="text"
-             @keyup.enter="addTodo"/>
+      <input
+        v-model="newTodoTitle"
+        placeholder="Ajouter une nouvelle tâche..."
+        type="text"
+        @keyup.enter="addTodo"
+      />
       <button class="btn-add" @click="addTodo">Ajouter</button>
     </div>
 
-    <TodoList :todos="todos" @change-selected="switchTodoStatus" @delete-task="deleteTodo"/>
+    <TodoList
+      :todos="todos"
+      @change-selected="switchTodoStatus"
+      @delete-task="deleteTodo"
+    />
   </ExerciseBase>
 </template>
 
 <style scoped>
+/* Tes styles restent inchangés car ils sont déjà très propres */
 .todo-header {
   display: flex;
   justify-content: space-between;
@@ -70,7 +114,6 @@ const addTodo = async () => {
   font-weight: 600;
 }
 
-/* Input d'ajout */
 .add-todo {
   display: flex;
   gap: 10px;
@@ -103,12 +146,5 @@ input[type="text"]:focus {
 
 .btn-add:hover {
   background: #2563eb;
-}
-
-/* Liste */
-.todo-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
 }
 </style>

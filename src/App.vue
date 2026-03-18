@@ -8,6 +8,7 @@ const exercises = [
   { id: '07', title: 'Todo list', path: '/exercices/07' },
   { id: '08', title: 'Todo list API', path: '/exercices/08' },
 ];
+
 </script>
 
 <template>
