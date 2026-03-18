@@ -6,6 +6,7 @@ const exercises = [
   { id: '05', title: 'Star Wars 2', path: '/exercices/05' },
   { id: '06', title: 'Composants', path: '/exercices/06' },
   { id: '07', title: 'Todo list', path: '/exercices/07' },
+  { id: '08', title: 'Todo list API', path: '/exercices/08' },
 ];
 </script>
 
